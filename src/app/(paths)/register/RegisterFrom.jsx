@@ -39,8 +39,14 @@ const RegisterFrom = () => {
 	};
 	return (
 		<form className="w-1/5 flex flex-col items-center gap-10 relative ">
-			<div>
-				<Image src={carLogo} alt="carLogo" width={150} height={150} />
+			<div className="shrink-0">
+				<Image
+					src={carLogo}
+					alt="carLogo"
+					width={150}
+					height={150}
+					className="shrink-0"
+				/>
 			</div>
 			<div className="flex flex-col gap-3 items-center">
 				<Input
@@ -86,7 +92,7 @@ const RegisterFrom = () => {
 			</div>
 			<Button
 				variant="contained"
-				className="bg-main-black text-main-bg hover:bg-main-gray hover:text-main-bg transition-all duration-300 ease-in-out"
+				className="bg-main-black text-main-bg hover:bg-main-gray hover:text-main-bg transition-all duration-300 ease-in-out  text-nowrap"
 				size="large"
 				onClick={(e) => handleSubmit(e)}>
 				Sign Up

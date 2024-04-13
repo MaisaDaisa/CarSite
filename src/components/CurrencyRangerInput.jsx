@@ -47,6 +47,7 @@ const CurrencyRangerInput = () => {
 					onChange={(e) => setMinPrice(e.target.value)}
 					className="font-bold"
 					sx={{
+						maxWidth: "300px",
 						"--Input-minHeight": "45px",
 						"--Input-paddingInline": "15px",
 						"--Input-radius": "60px",
@@ -60,6 +61,7 @@ const CurrencyRangerInput = () => {
 					onChange={(e) => setMaxPrice(e.target.value)}
 					className="font-bold"
 					sx={{
+						maxWidth: "300px",
 						"--Input-minHeight": "45px",
 						"--Input-paddingInline": "15px",
 						"--Input-radius": "60px",

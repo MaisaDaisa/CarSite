@@ -71,7 +71,7 @@ const LoginFrom = () => {
 			</div>
 			<Button
 				variant="contained"
-				className="bg-main-black text-main-bg hover:bg-main-gray hover:text-main-bg transition-all duration-300 ease-in-out"
+				className="bg-main-black text-main-bg hover:bg-main-gray hover:text-main-bg transition-all duration-300 ease-in-out  text-nowrap"
 				size="large"
 				onClick={handleSubmit}>
 				Sign In
