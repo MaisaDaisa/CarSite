@@ -22,7 +22,7 @@ const AutoListDisplay = ({
 		getListOfLikes().then((data) => {
 			setFavoritesList(data);
 		});
-	}, [lastItem]);
+	}, []);
 
 	useEffect(() => {
 		if (loading === false) return;
