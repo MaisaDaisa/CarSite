@@ -14,7 +14,7 @@ const page = () => {
 	}, []);
 	return (
 		<DefaultLayout>
-			<div className="flex flex-row justify-center gap-10 mt-20">
+			<div className="flex flex-col items-center md:flex-row md:justify-center gap-10 mt-20">
 				{favoritesList &&
 					favoritesList.map((car) => (
 						<CarCard

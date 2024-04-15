@@ -48,7 +48,7 @@ const Header = ({ profileInfo }) => {
 						</li>
 					</ul>
 				</nav>
-				<div className="w-[140px] lg:flex flex-row justify-end shrink-0 hidden ">
+				<div className=" lg:flex flex-row justify-end shrink-0 hidden ">
 					<ProfilePicture />
 				</div>
 				<Button
@@ -70,10 +70,10 @@ const Header = ({ profileInfo }) => {
 							<Link href="/">Home</Link>
 						</li>
 						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
-							<Link href="/about">About</Link>
+							<Link href="/favorites">Your Favorites</Link>
 						</li>
 						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
-							<Link href="/contact">Contact</Link>
+							<Link href="/post">Post Car</Link>
 						</li>
 					</ul>
 				</nav>

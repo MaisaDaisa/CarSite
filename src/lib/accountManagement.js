@@ -1,5 +1,5 @@
 import { auth } from "./firebase";
-import { saveToken } from "./dealWithToken";
+import { deleteTokens, saveToken } from "./dealWithToken";
 import {
 	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
@@ -44,6 +44,7 @@ export async function logout() {
 		auth
 			.signOut()
 			.then(() => {
+				deleteTokens();
 				console.log("Logged out");
 				resolve();
 			})

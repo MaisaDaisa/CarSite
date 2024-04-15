@@ -15,3 +15,13 @@ export const saveToken = (response) => {
 		cookies().set("email", response.email);
 	}
 };
+
+export const deleteTokens = () => {
+	cookies().delete("refresh");
+	cookies().delete("expiresIn");
+	cookies().delete("timestamp");
+	cookies().delete("localId");
+	cookies().delete("idToken");
+	cookies().delete("kind");
+	cookies().delete("email");
+};

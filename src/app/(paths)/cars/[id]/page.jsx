@@ -33,7 +33,7 @@ const page = () => {
 	return (
 		<DefaultLayout>
 			{post.id ? (
-				<div className="flex flex-row gap-12 justify-evenly h-full p-16 bg-secondary-gray m-4 rounded-3xl">
+				<div className="flex flex-col lg:flex-row gap-12 lg:justify-evenly h-full p-16 bg-secondary-gray m-4 rounded-3xl">
 					<div className="flex flex-col">
 						<div className="relative">
 							<div
