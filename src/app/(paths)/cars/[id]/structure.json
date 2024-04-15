@@ -1,0 +1,21 @@
+{
+    "carType": "Sedan",
+    "year": 1990,
+    "priceNegotiation": false,
+    "price": "1000000",
+    "author": {
+        "name": "MaisaTheDaisa",
+        "id": "LVsleuucwVV8YIyewpxYdTyXvT03"
+    },
+    "currency": "dollar",
+    "imageUrl": "https://firebasestorage.googleapis.com/v0/b/geoauto-b2a5e.appspot.com/o/postImages%2F179ae892-dd76-4a9d-b05b-81523c0870fd?alt=media&token=7a1e7b3b-09e7-432c-b0fd-d5e754bca4df",
+    "fuelType": "Gasoline",
+    "location": "Batumi",
+    "model": "Aventador",
+    "datePosted": {
+        "seconds": 1713179299,
+        "nanoseconds": 383000000
+    },
+    "brand": "Lamborghini",
+    "id": "8GIVCI9IYceK6BmnHju9"
+}

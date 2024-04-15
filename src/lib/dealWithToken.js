@@ -6,7 +6,7 @@ export const saveToken = (response) => {
 		console.log(response.error_description, "error");
 	} else {
 		const timestamp = new Date().getTime();
-		cookies().set("refresToken", response.refreshToken);
+		cookies().set("refresh", response.refreshToken);
 		cookies().set("expiresIn", response.expiresIn);
 		cookies().set("timestamp", timestamp);
 		cookies().set("localId", response.localId);

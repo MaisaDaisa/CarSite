@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import DefaultLayout from "./layout/DefaultLayout";
+import DefaultLayout from "@/app/pageLayout/DefaultLayout";
 import SplineBg from "@/components/SplineBg";
-import SearchSection from "./layout/Sections/SearchSection";
+import SearchSection from "@/app/pageLayout/Sections/SearchSection";
 
 export default function Home() {
 	return (
@@ -17,7 +17,7 @@ export default function Home() {
 							Drive with Comfort
 						</p>
 					</div>
-					<div className="w-full relative translate-x-1/4 h-full">
+					<div className="w-full relative translate-x-1/4 h-full -z-10">
 						<SplineBg />
 					</div>
 				</div>

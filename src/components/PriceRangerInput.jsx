@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
 import Input from "@mui/joy/Input";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
-import Divider from "@mui/joy/Divider";
 import Switch from "@mui/joy/Switch";
 import { switchClasses } from "@mui/joy/Switch";
 
@@ -28,7 +25,7 @@ import { switchClasses } from "@mui/joy/Switch";
 //         </Select>
 //     </React.Fragment>
 // }
-const CurrencyRangerInput = () => {
+const PriceRangeInput = () => {
 	const [currency, setCurrency] = React.useState("lari");
 	const [minPrice, setMinPrice] = React.useState("");
 	const [maxPrice, setMaxPrice] = React.useState("");
@@ -37,8 +34,8 @@ const CurrencyRangerInput = () => {
 		console.log("maxPrice", maxPrice);
 	}, [minPrice, maxPrice]);
 	return (
-		<div className="flex flex-row items-center gap-2">
-			<div className="flex flex-col items-center gap-2 w-2/3">
+		<div className="flex flex-row items-center gap-2 w-fit">
+			<div className="flex flex-col items-center gap-2 ">
 				<Input
 					type="number"
 					placeholder="Min Price"
@@ -47,7 +44,7 @@ const CurrencyRangerInput = () => {
 					onChange={(e) => setMinPrice(e.target.value)}
 					className="font-bold"
 					sx={{
-						maxWidth: "300px",
+						maxWidth: "190px",
 						"--Input-minHeight": "45px",
 						"--Input-paddingInline": "15px",
 						"--Input-radius": "60px",
@@ -55,20 +52,20 @@ const CurrencyRangerInput = () => {
 				/>
 				<Input
 					type="number"
-					placeholder="Min Price"
+					placeholder="Max Price"
 					startDecorator={{ lari: "₾", dollar: "$" }[currency]}
 					fullWidth
 					onChange={(e) => setMaxPrice(e.target.value)}
 					className="font-bold"
 					sx={{
-						maxWidth: "300px",
+						maxWidth: "190px",
 						"--Input-minHeight": "45px",
 						"--Input-paddingInline": "15px",
 						"--Input-radius": "60px",
 					}}
 				/>
 			</div>
-			<div className="flex flex-row justify-center items-center w-1/3 gap-2">
+			<div className="flex flex-row  lg:justify-center items-center w-full gap-2">
 				<Switch
 					startDecorator={<p className="text-lg">₾</p>}
 					endDecorator={<p className="text-lg">$</p>}
@@ -90,4 +87,4 @@ const CurrencyRangerInput = () => {
 	);
 };
 
-export default CurrencyRangerInput;
+export default PriceRangeInput;

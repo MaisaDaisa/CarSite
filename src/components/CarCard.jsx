@@ -1,7 +1,13 @@
 import Image from "next/image";
-import React from "react";
+import React, { useEffect } from "react";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { likeFunc } from "@/lib/favortiesManager";
+import Link from "next/link";
 
 const CarCard = ({
+	favoritesList,
+	id,
 	imgSrc,
 	brandName,
 	Model,
@@ -12,47 +18,62 @@ const CarCard = ({
 	carType,
 	fuelType,
 }) => {
-	const carDetails = {
-		imgSrc: imgSrc,
-		brandName: brandName,
-		Model: Model,
-		year: year,
-		price: price,
-		currency: currency,
-		location: location,
-		carType: carType,
-		fuelType: fuelType,
-	};
+	const [isFavorite, setIsFavorite] = React.useState(false);
+	console.log(typeof price);
+
+	useEffect(() => {
+		if (favoritesList.includes(id)) {
+			setIsFavorite(true);
+		}
+	}, [favoritesList]);
+
 	return (
-		<div>
-			<div className="flex flex-col md:w-[200px]  bg-white rounded-2xl shadow-lg">
+		<div className="flex flex-col md:w-[200px] h-full  bg-white rounded-2xl shadow-lg ">
+			<div className="relative">
+				<div
+					className="absolute top-2 right-2 z-10"
+					onClick={() => likeFunc(id)}>
+					{isFavorite ? (
+						<FavoriteIcon
+							onClick={() => setIsFavorite(!isFavorite)}
+							className="text-red-500 cursor-pointer"
+						/>
+					) : (
+						<FavoriteBorderIcon
+							onClick={() => setIsFavorite(!isFavorite)}
+							className="text-red-500 cursor-pointer"
+						/>
+					)}
+				</div>
 				<Image
-					src={carDetails.imgSrc}
+					alt="carImage"
+					src={imgSrc}
 					width={600}
 					height={400}
 					className="rounded-t-2xl"
 				/>
-				<div className="p-4">
-					<p className=" text-lg md:text-xs font-medium opacity-70 text-gray-400">
-						{carDetails.location}
-					</p>
-					<h1 className=" text-2xl md:text-sm mt-1 font-medium overflow-hidden text-ellipsis text-nowrap">
-						{carDetails.year} - {carDetails.brandName} {carDetails.Model}
-					</h1>
+			</div>
+			<div className="flex flex-col p-4 h-full overflow-y-hidden">
+				<p className=" text-lg md:text-xs font-medium opacity-70 text-gray-400">
+					{location}
+				</p>
+				<Link
+					href={`/cars/${id}`}
+					className=" text-2xl md:text-sm font-medium overflow-hidden text-ellipsis text-nowrap ">
+					{year} - {brandName} {Model}
+				</Link>
 
-					<p className=" text-3xl md:text-lg mt-4 font-semibold">
-						{carDetails.price} {carDetails.currency === "lari" ? "₾" : "$"}
-					</p>
-
-					<div className="border-t-[1px] py-2 border-slate-400 justify-around flex mt-6 items-center">
-						<p className="text-lg md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70 ">
-							{carDetails.carType}
-						</p>
-						<p className="text-lg md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70">
-							{carDetails.fuelType}
-						</p>
-					</div>
-				</div>
+				<p className=" text-3xl md:text-lg mt-4 font-semibold">
+					{parseInt(price).toLocaleString()} {currency === "lari" ? "₾" : "$"}
+				</p>
+			</div>
+			<div className="border-t-[1px] py-2 m-2 border-slate-400 justify-around justify-self-end flex mt-6 items-center">
+				<p className="text-lg md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70 ">
+					{carType}
+				</p>
+				<p className="text-lg md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70">
+					{fuelType}
+				</p>
 			</div>
 		</div>
 	);

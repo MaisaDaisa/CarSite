@@ -1,9 +1,11 @@
 "use client";
 import React from "react";
 import Image from "next/image";
-import carLogoLandscape from "../../assets/carLogoLandscape.png";
+import carLogoLandscape from "../../../assets/carLogoLandscape.png";
 import Link from "next/link";
-import defaultProfile from "../../assets/defaultProfile.jpg";
+import defaultProfile from "../../../assets/defaultProfile.jpg";
+import ProfilePicture from "./ProfilePicture";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/base";
 import { useEffect } from "react";
@@ -39,21 +41,15 @@ const Header = ({ profileInfo }) => {
 							<Link href="/">Home</Link>
 						</li>
 						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
-							<Link href="/about">About</Link>
+							<Link href="/favorites">Your Favorites</Link>
 						</li>
 						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
-							<Link href="/contact">Contact</Link>
+							<Link href="/post">Post Car</Link>
 						</li>
 					</ul>
 				</nav>
 				<div className="w-[140px] lg:flex flex-row justify-end shrink-0 hidden ">
-					<Image
-						src={defaultProfile}
-						alt="profile"
-						height={45}
-						width={45}
-						className="rounded-full"
-					/>
+					<ProfilePicture />
 				</div>
 				<Button
 					onClick={() => setMenuOpen(!menuOpen)}
@@ -65,8 +61,11 @@ const Header = ({ profileInfo }) => {
 				className={`overflow-hidden transition-all mt-8 duration-300 lg:hidden ${
 					menuOpen ? "h-auto" : "h-0"
 				}`}>
-				<nav className="">
-					<ul className="flex flex-col items-center gap-10 text-lg font-semibold underline-offset-4 transition-all duration-300 ">
+				<nav className="min-h-[40dvh] flex justify-center border-b-2 mx-8 border-main-black">
+					<ul className="flex flex-col items-center gap-10 text-lg font-semibold underline-offset-4 transition-all duration-300 w-1/3">
+						<li className="self-end">
+							<LogoutIcon className="cursor-pointer " />
+						</li>
 						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
 							<Link href="/">Home</Link>
 						</li>
