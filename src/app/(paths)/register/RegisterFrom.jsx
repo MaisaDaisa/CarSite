@@ -22,13 +22,11 @@ const RegisterFrom = () => {
 			const username = document.querySelector("#username").value;
 			const email = document.querySelector("#email").value;
 			const password = document.querySelector("#password").value;
-			console.log(username, email, password);
 			await createAccount(email, password, username);
 			setAlertType("success");
 			setAlertVisible(true);
 			setAlertMessage("Account Created Successfully");
 			setTimeout(() => {
-				console.log("Redirecting...");
 				window.location.href = "/";
 			}, 2000);
 		} catch (error) {

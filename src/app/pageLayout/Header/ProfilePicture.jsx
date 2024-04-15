@@ -24,10 +24,7 @@ const ProfilePicture = () => {
 		try {
 			logout();
 			navigation.push("/login");
-		} catch (error) {
-			console.log("error logging out");
-			console.log(error);
-		}
+		} catch (error) {}
 	};
 
 	return (

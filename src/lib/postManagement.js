@@ -52,11 +52,7 @@ export async function createPost(
 
 export async function getPosts() {
 	try {
-		const q = query(
-			postsCollection,
-			orderBy("datePosted", "desc"),
-			limit(limit)
-		);
+		const q = query(postsCollection, orderBy("datePosted", "desc"), limit(2));
 		const queryData = await getDocs(q);
 		return queryData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 	} catch (error) {
@@ -67,7 +63,7 @@ export async function getPosts() {
 
 export async function getLikedPosts() {
 	const likedPosts = await getListOfLikes();
-	console.log("likedPosts", likedPosts);
+
 	return await getPostsByDocIdList(likedPosts);
 }
 
@@ -79,7 +75,7 @@ export async function getPostsByDocIdList(docIdList) {
 			where("__name__", "in", docIdList),
 			orderBy("datePosted", "desc")
 		);
-		console.log("q", q);
+
 		const queryData = await getDocs(q);
 		return queryData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 	} catch (error) {
@@ -95,5 +91,21 @@ export async function getPostById(postId) {
 	} catch (error) {
 		console.error("Error fetching post:", error);
 		return null;
+	}
+}
+
+export async function getNextPosts(lastDocDate, limitProp = 2) {
+	try {
+		const q = query(
+			postsCollection,
+			limit(limitProp),
+			orderBy("datePosted", "desc"),
+			startAfter(lastDocDate)
+		);
+		const queryData = await getDocs(q);
+		return queryData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+	} catch (error) {
+		console.error("Error fetching posts:", error);
+		return [];
 	}
 }

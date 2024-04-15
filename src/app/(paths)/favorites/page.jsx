@@ -8,7 +8,6 @@ const page = () => {
 	const [favoritesList, setFavoritesList] = React.useState([]);
 	React.useEffect(() => {
 		getLikedPosts().then((data) => {
-			console.log("LkedList", data);
 			setFavoritesList(data);
 		});
 	}, []);

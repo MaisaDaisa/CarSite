@@ -4,6 +4,7 @@ import coolCar from "../../../assets/coolCar.jpg";
 import Button from "@mui/joy/Button";
 import { getPosts } from "@/lib/postManagement";
 import { getListOfLikes } from "@/lib/favortiesManager";
+import { getNextPosts } from "@/lib/postManagement";
 
 const AutoListDisplay = ({
 	searchParam,
@@ -19,42 +20,31 @@ const AutoListDisplay = ({
 
 	useEffect(() => {
 		getListOfLikes().then((data) => {
-			console.log("LkedList", data);
 			setFavoritesList(data);
 		});
 	}, [lastItem]);
 
 	useEffect(() => {
-		console.log("searchParam", searchParam);
-	}, [searchParam]);
-
-	useEffect(() => {
 		if (loading === false) return;
 		const fetchData = async () => {
-			const data = await getPosts();
-			console.log("Data", data);
-			setCars(data);
-			if (data.length > 0) {
-				setLastItem(data[data.length - 1].id);
+			let data = [];
+			if (cars.length === 0) {
+				data = await getPosts();
+				console.log("Data", data);
+				if (data.length > 0) {
+					setLastItem(data[data.length - 1].datePosted);
+					console.log("Last Item", lastItem);
+				}
+				setCars(data);
+			} else {
+				data = await getNextPosts(lastItem);
+				console.log("Data", data);
+				setCars((prev) => [...prev, ...data]);
 			}
 			setLoading(false);
 		};
 		fetchData();
 	}, [loading]);
-
-	if (minYear && maxYear) {
-		console.log("minYear", minYear);
-		console.log("maxYear", maxYear);
-	}
-
-	if (minPrice && maxPrice) {
-		console.log("minPrice", minPrice);
-		console.log("maxPrice", maxPrice);
-	}
-
-	if (searchParam) {
-		console.log("searchParam", searchParam);
-	}
 
 	const handleShowMore = () => {
 		setLoading(true);

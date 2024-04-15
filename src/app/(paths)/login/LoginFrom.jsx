@@ -24,7 +24,6 @@ const LoginFrom = () => {
 			setAlertVisible(true);
 			setAlertMessage("Logged In Successfully");
 			setTimeout(() => {
-				console.log("Redirecting...");
 				window.location.href = "/";
 			}, 2000);
 		} catch (error) {

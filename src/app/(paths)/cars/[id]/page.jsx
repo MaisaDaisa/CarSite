@@ -21,7 +21,6 @@ const page = () => {
 	useEffect(() => {
 		getPostById(id).then((data) => {
 			setPost(data);
-			console.log("Post", data);
 		});
 	}, []);
 

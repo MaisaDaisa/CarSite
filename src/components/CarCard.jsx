@@ -20,7 +20,6 @@ const CarCard = ({
 	priceNegotiation,
 }) => {
 	const [isFavorite, setIsFavorite] = React.useState(false);
-	console.log(typeof price);
 
 	useEffect(() => {
 		if (favoritesList.includes(id)) {

@@ -15,7 +15,6 @@ export async function likeFunc(postId) {
 	if (!postId) return;
 
 	const isLiked = await checkLiked(postId);
-	console.log(isLiked);
 
 	if (!isLiked.isLiked) {
 		await addDoc(likesCollection, {
@@ -25,10 +24,7 @@ export async function likeFunc(postId) {
 	} else {
 		try {
 			await deleteDoc(doc(likesCollection, isLiked.doc.id));
-			console.log("Post unliked and document deleted");
-		} catch (error) {
-			console.error("Error deleting document:", error);
-		}
+		} catch (error) {}
 	}
 }
 
@@ -46,7 +42,6 @@ export async function checkLiked(postId) {
 		const likedDoc = querySnapshot.docs[0];
 
 		if (likedDoc.exists()) {
-			console.log(likedDoc.id);
 			return { isLiked: true, doc: likedDoc };
 		} else {
 			return { isLiked: false, docId: null };

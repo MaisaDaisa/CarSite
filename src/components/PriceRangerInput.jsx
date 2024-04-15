@@ -29,10 +29,7 @@ const PriceRangeInput = () => {
 	const [currency, setCurrency] = React.useState("lari");
 	const [minPrice, setMinPrice] = React.useState("");
 	const [maxPrice, setMaxPrice] = React.useState("");
-	useEffect(() => {
-		console.log("minPrice", minPrice);
-		console.log("maxPrice", maxPrice);
-	}, [minPrice, maxPrice]);
+
 	return (
 		<div className="flex flex-row items-center gap-2 w-fit">
 			<div className="flex flex-col items-center gap-2 ">

@@ -11,11 +11,6 @@ const SearchSection = () => {
 	const [maxYear, setMaxYear] = React.useState(new Date().getFullYear());
 	const [inputValue, setInputValue] = React.useState("");
 
-	useEffect(() => {
-		console.log("minYear", minYear);
-		console.log("maxYear", maxYear);
-	}, [minYear, maxYear]);
-
 	return (
 		<div className="flex lg:flex-row flex-col w-svw justify-start p-2  min-h-screen ">
 			<div className="flex p-4 gap-8 flex-col lg:w-[300px] justify-start rounded-lg bg-secondary-gray ">
