@@ -8,11 +8,11 @@ const PriceDisplay = ({ priceProp, currencyProp }) => {
 
 	return (
 		<div className="flex flex-row w-full h-24px gap-10 items-center text-nowrap">
-			<p class="flex items-center text-[28px] leading-[1] text-center text-gray-800 font-bold pr-[4px]">
-				{price + " "}
-				<span class="w-6">{{ lari: "₾", dollar: "$" }[currency]}</span>
+			<p className="flex items-center text-4xl leading-[1] text-center text-gray-800 font-bold pr-[4px]">
+				{parseInt(price).toLocaleString() + " "}
+				<span className="w-6">{{ lari: "₾", dollar: "$" }[currency]}</span>
 			</p>
-			<div class="flex flex-row items-center gap-2 font-bold text-lg">
+			<div className="flex flex-row items-center gap-2 font-bold text-lg">
 				<Switch
 					startDecorator={<p className="text-lg">₾</p>}
 					endDecorator={<p className="text-lg">$</p>}

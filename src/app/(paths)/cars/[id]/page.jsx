@@ -19,10 +19,7 @@ const page = () => {
 	const [id, setId] = React.useState(params.id);
 
 	useEffect(() => {
-		const postImport = import("./structure.json", {
-			with: { type: "json" },
-		}).then((data) => {
-			console.log("Data", data);
+		getPostById(id).then((data) => {
 			setPost(data);
 		});
 	}, []);
@@ -56,6 +53,7 @@ const page = () => {
 							</div>
 							<Image
 								src={post.imageUrl}
+								alt="carImage"
 								width={900}
 								height={500}
 								className="rounded-lg"
@@ -67,6 +65,7 @@ const page = () => {
 									src={post.author.avatar ? post.author.avatar : defaultProfile}
 									width={50}
 									height={50}
+									alt="authorAvatar"
 									className="rounded-full"
 								/>
 								<p className="font-bold text-2xl">{post.author.name}</p>
@@ -79,7 +78,7 @@ const page = () => {
 						<h1 className="font-semibold text-2xl mt-8">
 							{post.brand} {post.model}
 						</h1>
-						<div className="mt-20 flex flex-col  p-2 w-full bg-white rounded-xl border-radius-12 mb-[16px] lg:mb-0">
+						<div className="mt-20 flex flex-col justify-self-center p-2 w-full bg-white rounded-xl border-radius-12 mb-[16px] lg:mb-0">
 							{[
 								{ Year: post.year },
 								{ Brand: post.brand },
@@ -87,8 +86,10 @@ const page = () => {
 								{ "Car Type": post.carType },
 								{ "Engine Type": post.fuelType },
 								{ Location: post.location },
-							].map((item) => (
-								<div className="grid grid-cols-2 p-2 w-full flex-row gap-2">
+							].map((item, index) => (
+								<div
+									className="grid grid-cols-2 p-2 w-full flex-row gap-2"
+									key={index}>
 									<h3 className="text-gray-600 border-r-[1px]">
 										{Object.keys(item)}
 									</h3>
