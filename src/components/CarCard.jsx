@@ -17,6 +17,7 @@ const CarCard = ({
 	location,
 	carType,
 	fuelType,
+	priceNegotiation,
 }) => {
 	const [isFavorite, setIsFavorite] = React.useState(false);
 	console.log(typeof price);
@@ -64,7 +65,11 @@ const CarCard = ({
 				</Link>
 
 				<p className=" text-3xl md:text-lg mt-4 font-semibold">
-					{parseInt(price).toLocaleString()} {currency === "lari" ? "₾" : "$"}
+					{!priceNegotiation
+						? `${parseInt(price).toLocaleString()} ${
+								currency === "lari" ? "₾" : "$"
+						  }`
+						: "Offer Price"}
 				</p>
 			</div>
 			<div className="border-t-[1px] py-2 m-2 border-slate-400 justify-around justify-self-end flex mt-6 items-center">

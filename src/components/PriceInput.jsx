@@ -19,7 +19,7 @@ const PriceInput = ({
 			<Input
 				type="number"
 				placeholder={negotiation ? "Negotiate for Price" : placeholder}
-				value={selectedPrice}
+				value={negotiation ? "On price Offer" : selectedPrice}
 				disabled={negotiation}
 				endDecorator={
 					<Button

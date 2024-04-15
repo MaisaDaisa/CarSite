@@ -21,6 +21,7 @@ const page = () => {
 	useEffect(() => {
 		getPostById(id).then((data) => {
 			setPost(data);
+			console.log("Post", data);
 		});
 	}, []);
 
@@ -74,7 +75,14 @@ const page = () => {
 						</div>
 					</div>
 					<div className="flex flex-col justify-start items-start h-full">
-						<PriceDisplay priceProp={post.price} currencyProp={post.currency} />
+						{post.priceNegotiation ? (
+							<p className="flex items-center text-4xl leading-[1] text-center text-gray-800 font-bold pr-[4px]">
+								Negotiate For Price
+							</p>
+						) : (
+							<PriceDisplay price={post.price} currency={post.currency} />
+						)}
+
 						<h1 className="font-semibold text-2xl mt-8">
 							{post.brand} {post.model}
 						</h1>

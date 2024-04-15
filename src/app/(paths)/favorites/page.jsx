@@ -30,6 +30,7 @@ const page = () => {
 							carType={car.carType}
 							fuelType={car.fuelType}
 							favoritesList={[car.id]}
+							priceNegotiation={car.priceNegotiation}
 						/>
 					))}
 			</div>

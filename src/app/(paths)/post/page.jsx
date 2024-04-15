@@ -70,7 +70,7 @@ const Page = () => {
 	}, [brand]);
 
 	const handleSubmission = () => {
-		if (!price) {
+		if (!price && !priceNegotiation) {
 			alert("Please enter a price");
 			return;
 		}

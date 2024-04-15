@@ -77,6 +77,7 @@ const AutoListDisplay = ({
 							location={car.location}
 							price={car.price}
 							year={car.year}
+							priceNegotiation={car.priceNegotiation}
 						/>
 					))}
 			</div>
