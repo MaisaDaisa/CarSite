@@ -1,10 +1,10 @@
 import React, { use, useEffect } from "react";
 import CarCard from "@/components/CarCard";
-import coolCar from "../../../assets/coolCar.jpg";
 import Button from "@mui/joy/Button";
-import { getPosts } from "@/lib/postManagement";
+import { modularGetPosts } from "@/lib/postManagement";
 import { getListOfLikes } from "@/lib/favortiesManager";
-import { getNextPosts } from "@/lib/postManagement";
+
+export const SearchParamContext = React.createContext(null);
 
 const AutoListDisplay = ({
 	searchParam,
@@ -12,9 +12,10 @@ const AutoListDisplay = ({
 	maxYear,
 	minPrice,
 	maxPrice,
+	loading,
+	setLoading,
 }) => {
 	const [cars, setCars] = React.useState([]);
-	const [loading, setLoading] = React.useState(true);
 	const [lastItem, setLastItem] = React.useState(null);
 	const [favoritesList, setFavoritesList] = React.useState([]);
 
@@ -25,25 +26,42 @@ const AutoListDisplay = ({
 	}, []);
 
 	useEffect(() => {
+		console.log("lastItem", lastItem);
+	}, [lastItem]);
+
+	useEffect(() => {
 		if (loading === false) return;
 		const fetchData = async () => {
+			console.log("SearchParam", searchParam, typeof searchParam);
+			console.log("MinYear", minYear, typeof minYear);
+			console.log("MaxYear", maxYear, typeof maxYear);
+			console.log("MinPrice", minPrice, typeof minPrice);
+			console.log("MaxPrice", maxPrice, typeof maxPrice);
 			let data = [];
-			if (cars.length === 0) {
-				data = await getPosts();
-				console.log("Data", data);
-				if (data.length > 0) {
-					setLastItem(data[data.length - 1].datePosted);
-					console.log("Last Item", lastItem);
-				}
-				setCars(data);
-			} else {
-				data = await getNextPosts(lastItem);
-				console.log("Data", data);
-				setCars((prev) => [...prev, ...data]);
+			console.log("LastItem", lastItem);
+			data = await modularGetPosts({
+				searchText: searchParam !== "" ? searchParam : null,
+				lastItem: lastItem,
+				minYear: minYear < maxYear && minYear >= 1990 ? minYear : null,
+				maxYear:
+					maxYear > minYear && maxYear <= new Date().getFullYear()
+						? maxYear
+						: null,
+				minPrice: minPrice !== null && minPrice < maxPrice ? minPrice : 0,
+				maxPrice: maxPrice !== null && maxPrice > minPrice ? maxPrice : null,
+			});
+
+			console.log("Data", data);
+			if (data.length > 0) {
+				setLastItem(data[data.length - 1].datePosted);
 			}
+			setCars((prev) => [...prev, ...data]);
+
 			setLoading(false);
 		};
-		fetchData();
+		if (loading) {
+			fetchData();
+		}
 	}, [loading]);
 
 	const handleShowMore = () => {

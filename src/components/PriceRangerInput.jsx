@@ -3,33 +3,14 @@ import Input from "@mui/joy/Input";
 import Switch from "@mui/joy/Switch";
 import { switchClasses } from "@mui/joy/Switch";
 
-// endDecorator={
-//     <React.Fragment>
-//         <Divider orientation="vertical" />
-//         <Select
-//             variant="plain"
-//             value={currency}
-//             onChange={(_, value) => setCurrency(value)}
-//             slotProps={{
-//                 listbox: {
-//                     variant: "outlined",
-//                 },
-//             }}
-//             sx={{
-//                 mr: -1.5,
-//                 bgcolor: "transparent",
-//                 ":hover": { bgcolor: "transparent" },
-//             }}>
-//             <Option value="lari">₾</Option>
-//             <Option value="dollar">$</Option>
-//         </Select>
-//     </React.Fragment>
-// }
-const PriceRangeInput = () => {
-	const [currency, setCurrency] = React.useState("lari");
-	const [minPrice, setMinPrice] = React.useState("");
-	const [maxPrice, setMaxPrice] = React.useState("");
-
+const PriceRangeInput = ({
+	minPrice,
+	setMinPrice,
+	maxPrice,
+	setMaxPrice,
+	currency,
+	setCurrency,
+}) => {
 	return (
 		<div className="flex flex-row items-center gap-2 w-fit">
 			<div className="flex flex-col items-center gap-2 ">

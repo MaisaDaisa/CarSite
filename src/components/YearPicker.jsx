@@ -9,6 +9,8 @@ const YearPicker = ({ width, id, placeholder, setter }) => {
 	);
 	return (
 		<Autocomplete
+			type="number"
+			key={placeholder}
 			placeholder={placeholder}
 			id={id}
 			onChange={(e, value) => setter(value)}

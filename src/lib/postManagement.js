@@ -12,6 +12,7 @@ import {
 import { postsCollection } from "./firebase";
 import { getListOfLikes } from "./favortiesManager";
 import { doc } from "firebase/firestore";
+import { or, and } from "firebase/firestore";
 
 export async function createPost(
 	year,
@@ -32,7 +33,7 @@ export async function createPost(
 			year: year,
 			brand: brand,
 			model: model,
-			price: priceNegotiation ? 0 : price,
+			price: priceNegotiation ? 0 : parseInt(price),
 			carType: carType,
 			fuelType: fuelType,
 			currency: currency,
@@ -47,17 +48,6 @@ export async function createPost(
 		});
 	} catch (error) {
 		console.error("Error creating post:", error);
-	}
-}
-
-export async function getPosts() {
-	try {
-		const q = query(postsCollection, orderBy("datePosted", "desc"), limit(2));
-		const queryData = await getDocs(q);
-		return queryData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-	} catch (error) {
-		console.error("Error fetching posts:", error);
-		return [];
 	}
 }
 
@@ -94,14 +84,53 @@ export async function getPostById(postId) {
 	}
 }
 
-export async function getNextPosts(lastDocDate, limitProp = 2) {
+export async function modularGetPosts(objectParam) {
 	try {
-		const q = query(
-			postsCollection,
-			limit(limitProp),
-			orderBy("datePosted", "desc"),
-			startAfter(lastDocDate)
+		// PAGINATION
+		let q = query(postsCollection, orderBy("datePosted", "desc"), limit(1));
+		if (objectParam.lastItem !== null) {
+			q = query(q, startAfter(objectParam.lastItem));
+		}
+
+		// SEARCH FILTER
+		if (objectParam.searchText && objectParam.searchText.length > 2) {
+			console.log("SearchText", objectParam.searchText);
+			q = query(
+				q,
+				or(
+					and(
+						where("brand", ">=", objectParam.searchText),
+						where("brand", "<=", objectParam.searchText + "\uf8ff")
+					),
+					and(
+						where("model", ">=", objectParam.searchText),
+						where("model", "<=", objectParam.searchText + "\uf8ff")
+					)
+				)
+			);
+		}
+
+		// PRICE FILTER
+		q = query(
+			q,
+			where("price", ">=", objectParam.minPrice ? objectParam.minPrice : 0)
 		);
+		if (objectParam.maxPrice) {
+			console.log("MaxPrice", objectParam.maxPrice);
+			q = query(q, where("price", "<=", objectParam.maxPrice));
+		}
+
+		// YEAR FILTER
+		q = query(
+			q,
+			where("year", ">=", objectParam.minYear ? objectParam.minYear : 1900)
+		);
+		if (objectParam.maxYear) {
+			console.log("MaxYear", objectParam.maxYear);
+			q = query(q, where("year", "<=", objectParam.maxYear));
+		}
+
+		console.log("Query", q);
 		const queryData = await getDocs(q);
 		return queryData.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
 	} catch (error) {
