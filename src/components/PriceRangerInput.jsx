@@ -19,7 +19,7 @@ const PriceRangeInput = ({
 					placeholder="Min Price"
 					startDecorator={{ lari: "₾", dollar: "$" }[currency]}
 					fullWidth
-					onChange={(e) => setMinPrice(e.target.value)}
+					onChange={(e) => setMinPrice(parseInt(e.target.value))}
 					className="font-bold"
 					sx={{
 						maxWidth: "190px",

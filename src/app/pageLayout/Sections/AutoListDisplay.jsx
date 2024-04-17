@@ -1,10 +1,8 @@
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import CarCard from "@/components/CarCard";
 import Button from "@mui/joy/Button";
 import { modularGetPosts } from "@/lib/postManagement";
 import { getListOfLikes } from "@/lib/favortiesManager";
-
-export const SearchParamContext = React.createContext(null);
 
 const AutoListDisplay = ({
 	searchParam,
@@ -18,6 +16,13 @@ const AutoListDisplay = ({
 	const [cars, setCars] = React.useState([]);
 	const [lastItem, setLastItem] = React.useState(null);
 	const [favoritesList, setFavoritesList] = React.useState([]);
+	const [lastParams, setLastParams] = React.useState({
+		minPrice: minPrice,
+		maxPrice: maxPrice,
+		minYear: minYear,
+		maxYear: maxPrice,
+		searchParam: searchParam,
+	});
 
 	useEffect(() => {
 		getListOfLikes().then((data) => {
@@ -26,31 +31,29 @@ const AutoListDisplay = ({
 	}, []);
 
 	useEffect(() => {
+		console.log("searchParam", searchParam, typeof searchParam);
+		console.log("minYear", minYear, typeof minYear);
+		console.log("maxYear", maxYear, typeof maxYear);
+		console.log("minPrice", minPrice, typeof minPrice);
+		console.log("maxPrice", maxPrice, typeof maxPrice);
+	}, [minYear, maxYear, minPrice, maxPrice, searchParam]);
+
+	useEffect(() => {
 		console.log("lastItem", lastItem);
 	}, [lastItem]);
 
 	useEffect(() => {
 		if (loading === false) return;
 		const fetchData = async () => {
-			console.log("SearchParam", searchParam, typeof searchParam);
-			console.log("MinYear", minYear, typeof minYear);
-			console.log("MaxYear", maxYear, typeof maxYear);
-			console.log("MinPrice", minPrice, typeof minPrice);
-			console.log("MaxPrice", maxPrice, typeof maxPrice);
 			let data = [];
-			console.log("LastItem", lastItem);
 			data = await modularGetPosts({
 				searchText: searchParam !== "" ? searchParam : null,
 				lastItem: lastItem,
-				minYear: minYear < maxYear && minYear >= 1990 ? minYear : null,
-				maxYear:
-					maxYear > minYear && maxYear <= new Date().getFullYear()
-						? maxYear
-						: null,
-				minPrice: minPrice !== null && minPrice < maxPrice ? minPrice : 0,
-				maxPrice: maxPrice !== null && maxPrice > minPrice ? maxPrice : null,
+				minYear: minYear >= 1900 && maxYear > minYear ? minYear : 1900,
+				maxYear: maxYear !== null && maxYear > minYear ? maxYear : null,
+				minPrice: minPrice !== NaN && minPrice < maxPrice ? minPrice : 0,
+				maxPrice: maxPrice !== NaN && maxPrice > minPrice ? maxPrice : null,
 			});
-
 			console.log("Data", data);
 			if (data.length > 0) {
 				setLastItem(data[data.length - 1].datePosted);
@@ -59,14 +62,13 @@ const AutoListDisplay = ({
 
 			setLoading(false);
 		};
-		if (loading) {
-			fetchData();
-		}
+		fetchData();
 	}, [loading]);
 
 	const handleShowMore = () => {
 		setLoading(true);
 	};
+
 	return (
 		<div className=" bg-main-bg px-8 flex gap-6 flex-col justify-start items-center p-2 w-full h-full">
 			<div className="flex flex-row justify-evenly gap-8 mt-8 lg:mt-0 w-full h-full flex-wrap">

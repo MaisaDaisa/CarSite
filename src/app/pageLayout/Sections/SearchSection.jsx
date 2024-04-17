@@ -6,11 +6,11 @@ import YearPicker from "@/components/YearPicker";
 
 const SearchSection = () => {
 	const [loading, setLoading] = React.useState(true);
-	const [minYear, setMinYear] = React.useState(0);
-	const [maxYear, setMaxYear] = React.useState(0);
+	const [minYear, setMinYear] = React.useState(null);
+	const [maxYear, setMaxYear] = React.useState(null);
 	const [currency, setCurrency] = React.useState("lari");
-	const [minPrice, setMinPrice] = React.useState(0);
-	const [maxPrice, setMaxPrice] = React.useState(0);
+	const [minPrice, setMinPrice] = React.useState(null);
+	const [maxPrice, setMaxPrice] = React.useState(null);
 	const [searchParam, setSearchParam] = React.useState("");
 
 	return (
