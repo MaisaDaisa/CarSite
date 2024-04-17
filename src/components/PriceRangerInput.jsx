@@ -16,6 +16,7 @@ const PriceRangeInput = ({
 			<div className="flex flex-col items-center gap-2 ">
 				<Input
 					type="number"
+					value={minPrice}
 					placeholder="Min Price"
 					startDecorator={{ lari: "₾", dollar: "$" }[currency]}
 					fullWidth
@@ -29,11 +30,12 @@ const PriceRangeInput = ({
 					}}
 				/>
 				<Input
+					value={maxPrice}
 					type="number"
 					placeholder="Max Price"
 					startDecorator={{ lari: "₾", dollar: "$" }[currency]}
 					fullWidth
-					onChange={(e) => setMaxPrice(e.target.value)}
+					onChange={(e) => setMaxPrice(parseInt(e.target.value))}
 					className="font-bold"
 					sx={{
 						maxWidth: "190px",

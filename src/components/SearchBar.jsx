@@ -3,7 +3,7 @@ import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import SearchIcon from "@mui/icons-material/Search";
 
-const SearchBar = ({ input = "", inputSetter, setLoader }) => {
+const SearchBar = ({ input = "", inputSetter, handleSearch }) => {
 	const handleClear = () => {
 		inputSetter("");
 	};
@@ -11,10 +11,7 @@ const SearchBar = ({ input = "", inputSetter, setLoader }) => {
 	return (
 		<Input
 			startDecorator={
-				<SearchIcon
-					className="cursor-pointer"
-					onClick={() => setLoader(true)}
-				/>
+				<SearchIcon className="cursor-pointer" onClick={handleSearch} />
 			}
 			endDecorator={
 				input.length > 0 && (
