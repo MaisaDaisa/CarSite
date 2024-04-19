@@ -45,7 +45,6 @@ export async function logout() {
 			.signOut()
 			.then(() => {
 				deleteTokens();
-
 				resolve();
 			})
 			.catch((error) => {

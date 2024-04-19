@@ -38,13 +38,13 @@ const Header = () => {
 				</Link>
 				<nav className="hidden lg:block">
 					<ul className="flex flex-row gap-20 text-lg font-semibold underline-offset-4 ">
-						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
+						<li className="hover:underline transition-all ease-in-out duration-300 text-nowrap">
 							<Link href="/">Home</Link>
 						</li>
-						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
+						<li className="hover:underline transition-all ease-in-out duration-300 text-nowrap">
 							<Link href="/favorites">Your Favorites</Link>
 						</li>
-						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
+						<li className="hover:underline transition-all ease-in-out duration-300 text-nowrap">
 							<Link href="/post">Post Car</Link>
 						</li>
 					</ul>
@@ -59,24 +59,24 @@ const Header = () => {
 				</Button>
 			</div>
 			<div
-				className={`overflow-hidden transition-all mt-8 duration-300 lg:hidden ${
+				className={`overflow-hidden transition-all mt-8 duration-300 text-nowrap lg:hidden ${
 					menuOpen ? "h-auto" : "h-0"
 				}`}>
 				<nav className="min-h-[40dvh] flex justify-center pb-14 border-b-2 mx-8 border-main-black">
-					<ul className="flex flex-col items-center gap-10 text-lg font-semibold underline-offset-4 transition-all duration-300 w-1/3">
+					<ul className="flex flex-col items-center gap-10 text-lg font-semibold underline-offset-4 transition-all   duration-300 text-nowrap w-1/3">
 						<li className="self-end">
 							<LogoutIcon
 								className="cursor-pointer "
 								onClick={() => logout()}
 							/>
 						</li>
-						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
+						<li className="hover:underline transition-all ease-in-out duration-300 text-nowrap text">
 							<Link href="/">Home</Link>
 						</li>
-						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
+						<li className="hover:underline transition-all ease-in-out duration-300 text-nowrap">
 							<Link href="/favorites">Your Favorites</Link>
 						</li>
-						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
+						<li className="hover:underline transition-all ease-in-out duration-300 text-nowrap">
 							<Link href="/post">Post Car</Link>
 						</li>
 					</ul>
