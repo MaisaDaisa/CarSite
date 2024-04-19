@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchBar from "@/components/SearchBar";
 import CurrencyRangerInput from "@/components/PriceRangerInput";
 import AutoListDisplay from "./AutoListDisplay";
@@ -8,7 +8,6 @@ import { useSearchParams } from "next/navigation";
 
 const SearchSection = () => {
 	const searchParams = useSearchParams();
-	// ... continue getting other parameters as needed
 	const [cars, setCars] = useState([]);
 	const [lastItem, setLastItem] = React.useState(null);
 	const [loading, setLoading] = useState(true);
@@ -29,14 +28,6 @@ const SearchSection = () => {
 		searchParams.get("searchParam") || ""
 	);
 
-	let oldParams = {
-		minYear: minYear,
-		maxYear: maxYear,
-		minPrice: minPrice,
-		maxPrice: maxPrice,
-		searchParam: searchParam,
-	};
-
 	const handleSearch = () => {
 		const queryParams = new URLSearchParams();
 		if (searchParam) queryParams.set("searchParam", searchParam);
@@ -56,33 +47,31 @@ const SearchSection = () => {
 		}
 		const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
 		window.history.pushState(null, "", newUrl);
-		console.log("QUERY PARAMS", oldParams);
 		console.log(minYear, maxYear, minPrice, maxPrice, searchParam);
 
-		if (
-			oldParams.minYear !== minYear ||
-			oldParams.maxYear !== maxYear ||
-			oldParams.minPrice !== minPrice ||
-			oldParams.maxPrice !== maxPrice ||
-			oldParams.searchParam !== searchParam
-		) {
-			setCars([]);
-			setLoading(true);
-			setLastItem(null);
-			oldParams = {
-				minPrice: minPrice,
-				maxPrice: maxPrice,
-				minYear: minYear,
-				maxYear: maxPrice,
-				searchParam: searchParam,
-			};
-		}
+		console.log("FETCHING");
+		setCars([]);
+		setLoading(true);
+		setLastItem(null);
+	};
+
+	const handleClear = () => {
+		setSearchParam("");
+		setMinYear(null);
+		setMaxYear(null);
+		setMinPrice(null);
+		setMaxPrice(null);
+		setCurrency("lari");
+		setLastItem(null);
+		setCars([]);
+		setLoading(true);
 	};
 
 	return (
 		<div className="flex lg:flex-row flex-col w-svw justify-start p-2  min-h-screen ">
 			<div className="flex p-4 gap-8 flex-col lg:w-[300px] justify-start rounded-lg bg-secondary-gray ">
 				<SearchBar
+					handleClearFunc={handleClear}
 					input={searchParam}
 					inputSetter={setSearchParam}
 					handleSearch={handleSearch}
@@ -113,6 +102,7 @@ const SearchSection = () => {
 				/>
 			</div>
 			<AutoListDisplay
+				limit={parseInt(searchParams.get("limit")) || null}
 				cars={cars}
 				setCars={setCars}
 				lastItem={lastItem}

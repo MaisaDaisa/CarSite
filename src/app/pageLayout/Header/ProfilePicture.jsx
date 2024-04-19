@@ -46,8 +46,6 @@ const ProfilePicture = () => {
 				className={`absolute top-16 -right-2 bg-white shadow-lg rounded-lg z-10 ${
 					showMenu ? "" : "hidden"
 				}`}>
-				{/* <MenuItem className="cursor-pointer">Profile</MenuItem>
-				<MenuItem className="cursor-pointer">My account</MenuItem> */}
 				<MenuItem className="cursor-pointer" onClick={handleLogout}>
 					Logout
 				</MenuItem>

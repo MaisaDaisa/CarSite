@@ -1,10 +1,14 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CarCard from "@/components/CarCard";
 import Button from "@mui/joy/Button";
 import { modularGetPosts } from "@/lib/postManagement";
 import { getListOfLikes } from "@/lib/favortiesManager";
+import Alert from "@mui/material/Alert";
+import { setAlertVisibilityTimer } from "@/util/alertVisibilityTimer";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const AutoListDisplay = ({
+	limit,
 	lastItem,
 	setLastItem,
 	cars,
@@ -17,18 +21,15 @@ const AutoListDisplay = ({
 	loading,
 	setLoading,
 }) => {
-	const [favoritesList, setFavoritesList] = React.useState([]);
-	const [lastParams, setLastParams] = React.useState({
-		minPrice: minPrice,
-		maxPrice: maxPrice,
-		minYear: minYear,
-		maxYear: maxPrice,
-		searchParam: searchParam,
-	});
+	const [favoritesList, setFavoritesList] = useState([]);
+	const [alertVisible, setAlertVisible] = useState(false);
+	const [alertMessage, setAlertMessage] = useState("");
+	const [alertType, setAlertType] = useState("success");
 
 	const fetchData = useCallback(async () => {
 		let data = [];
 		data = await modularGetPosts({
+			limit: limit,
 			searchText: searchParam !== "" ? searchParam : null,
 			lastItem: lastItem,
 			minYear: minYear >= 1900 && maxYear > minYear ? minYear : 1900,
@@ -39,8 +40,12 @@ const AutoListDisplay = ({
 		console.log("Data", data);
 		if (data.length > 0) {
 			setLastItem(data[data.length - 1].datePosted);
+			setCars((prev) => [...prev, ...data]);
+		} else {
+			setAlertType("error");
+			setAlertMessage("No More Cars Found");
+			setAlertVisibilityTimer(setAlertVisible, 3000);
 		}
-		setCars((prev) => [...prev, ...data]);
 		setLoading(false);
 	}, [
 		searchParam,
@@ -101,17 +106,24 @@ const AutoListDisplay = ({
 					))}
 			</div>
 			{loading ? (
-				<p>Loading...</p>
+				<CircularProgress disableShrink sx={{ color: "black" }} />
 			) : (
-				<Button
-					sx={{
-						color: "white",
-					}}
-					className="bg-main-gray hover:text-main-black hover:bg-secondary-gray transition-all duration-300
+				<div className="flex flex-col items-center gap-2">
+					<Button
+						sx={{
+							color: "white",
+						}}
+						className="bg-main-gray hover:text-main-black hover:bg-secondary-gray transition-all duration-300
 				text-2xl rounded-2xl p-3 lg:text-base"
-					onClick={handleShowMore}>
-					Show More
-				</Button>
+						onClick={handleShowMore}>
+						Show More
+					</Button>
+					<Alert
+						severity={alertType == "success" ? "success" : "error"}
+						className={`text-nowrap  ${alertVisible ? "" : "hidden"}`}>
+						{alertMessage}
+					</Alert>
+				</div>
 			)}
 		</div>
 	);

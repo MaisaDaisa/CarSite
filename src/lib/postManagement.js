@@ -47,6 +47,7 @@ export async function createPost(
 			},
 		});
 	} catch (error) {
+		throw error;
 		console.error("Error creating post:", error);
 	}
 }
@@ -87,7 +88,11 @@ export async function getPostById(postId) {
 export async function modularGetPosts(objectParam) {
 	try {
 		// PAGINATION
-		let q = query(postsCollection, orderBy("datePosted", "desc"), limit(1));
+		let q = query(
+			postsCollection,
+			orderBy("datePosted", "desc"),
+			limit(objectParam.limit ? objectParam.limit : 20)
+		);
 		if (objectParam.lastItem !== null) {
 			q = query(q, startAfter(objectParam.lastItem));
 		}

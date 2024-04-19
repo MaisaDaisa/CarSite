@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import DefaultLayout from "@/app/pageLayout/DefaultLayout";
 import YearPicker from "@/components/YearPicker";
 import CarBrandPicker from "@/components/CarBrandPicker";
@@ -11,19 +11,25 @@ import LocationPicker from "@/components/LocationPicker";
 import ImageCropper from "@/components/ImageCropper/ImageCropper";
 import Button from "@mui/material/Button";
 import { createPost } from "@/lib/postManagement";
+import { setAlertVisibilityTimer } from "@/util/alertVisibilityTimer";
+import Alert from "@mui/material/Alert";
+import { Switch } from "@mui/joy";
 
 const Page = () => {
-	const [year, setYear] = React.useState(null);
-	const [brand, setBrand] = React.useState(null);
-	const [disableModel, setDisableModel] = React.useState(true);
-	const [model, setModel] = React.useState("");
-	const [price, setPrice] = React.useState(null);
-	const [priceNegotiation, setPriceNegotiation] = React.useState(false);
-	const [carType, setCarType] = React.useState(null);
-	const [fuelType, setFuelType] = React.useState(null);
-	const [currency, setCurrency] = React.useState("lari");
-	const [location, setLocation] = React.useState(null);
-	const [image, setImage] = React.useState(null);
+	const [alertVisible, setAlertVisible] = useState(false);
+	const [alertMessage, setAlertMessage] = useState("");
+	const [alertType, setAlertType] = useState("success");
+	const [year, setYear] = useState(null);
+	const [brand, setBrand] = useState(null);
+	const [disableModel, setDisableModel] = useState(true);
+	const [model, setModel] = useState("");
+	const [price, setPrice] = useState(null);
+	const [priceNegotiation, setPriceNegotiation] = useState(false);
+	const [carType, setCarType] = useState(null);
+	const [fuelType, setFuelType] = useState(null);
+	const [currency, setCurrency] = useState("lari");
+	const [location, setLocation] = useState(null);
+	const [image, setImage] = useState(null);
 
 	useEffect(() => {
 		console.log("Year: ", year);
@@ -69,51 +75,86 @@ const Page = () => {
 		}
 	}, [brand]);
 
+	useEffect(() => {
+		if (image) {
+			setAlertMessage("Image Cropped Successfully");
+			setAlertType("success");
+			setAlertVisibilityTimer(setAlertVisible);
+		}
+	}, [image]);
+
 	const handleSubmission = () => {
-		if (!price && !priceNegotiation) {
-			alert("Please enter a price");
-			return;
+		switch (true) {
+			case !price || (price === 0 && !priceNegotiation):
+				setAlertMessage("Price is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !year:
+				setAlertMessage("Year is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !brand:
+				setAlertMessage("Brand is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !model:
+				setAlertMessage("Model is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !carType:
+				setAlertMessage("Car Type is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !fuelType:
+				setAlertMessage("Fuel Type is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !currency:
+				setAlertMessage("Currency is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !location:
+				setAlertMessage("Location is required");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			case !image:
+				setAlertMessage("Please, Crop the Image");
+				setAlertType("error");
+				setAlertVisibilityTimer(setAlertVisible);
+				break;
+			default:
+				try {
+					createPost(
+						year,
+						brand.brand,
+						model,
+						price,
+						carType,
+						fuelType,
+						currency,
+						location,
+						priceNegotiation,
+						image
+					).then(() => {
+						setAlertMessage("Post created successfully");
+						setAlertType("success");
+						setAlertVisibilityTimer(setAlertVisible);
+					});
+				} catch (error) {
+					setAlertMessage("Error while creating post");
+					setAlertType("error");
+					setAlertVisibilityTimer(setAlertVisible);
+					return;
+				}
 		}
-		if (!year) {
-			alert("Please enter a year");
-			return;
-		}
-		if (!brand) {
-			alert("Please enter a brand");
-			return;
-		}
-		if (!model) {
-			alert("Please enter a model");
-			return;
-		}
-		if (!carType) {
-			alert("Please enter a car type");
-			return;
-		}
-		if (!fuelType) {
-			alert("Please enter a fuel type");
-			return;
-		}
-		if (!location) {
-			alert("Please enter a location");
-			return;
-		}
-		if (!image) {
-			alert("Please upload an image");
-			return;
-		}
-		createPost(
-			year,
-			brand.brand,
-			model,
-			price,
-			carType,
-			fuelType,
-			currency,
-			location,
-			priceNegotiation,
-			image
-		);
 	};
 
 	return (
@@ -148,6 +189,7 @@ const Page = () => {
 							placeholder={"Fuel Type"}
 						/>
 						<YearPicker
+							value={year}
 							width="250px"
 							id="year-picker"
 							placeholder="Manufacture Year"
@@ -181,6 +223,13 @@ const Page = () => {
 					onClick={() => handleSubmission()}>
 					Submit
 				</Button>
+				<div className="relative flex flex-row justify-center">
+					<Alert
+						severity={alertType == "success" ? "success" : "error"}
+						className={`absolute text-nowrap  ${alertVisible ? "" : "hidden"}`}>
+						{alertMessage}
+					</Alert>
+				</div>
 			</div>
 		</DefaultLayout>
 	);

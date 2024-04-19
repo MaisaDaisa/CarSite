@@ -11,12 +11,14 @@ import { checkLiked } from "@/lib/favortiesManager";
 import { likeFunc } from "@/lib/favortiesManager";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import Skeleton from "@mui/material/Skeleton";
 
 const page = () => {
 	const params = useParams();
 	const [post, setPost] = React.useState([]);
 	const [isFavorite, setIsFavorite] = React.useState(false);
 	const [id, setId] = React.useState(params.id);
+	const [hasLoaded, setHasLoaded] = React.useState(false);
 
 	useEffect(() => {
 		getPostById(id).then((data) => {
@@ -36,6 +38,20 @@ const page = () => {
 				<div className="flex flex-col lg:flex-row gap-12 lg:justify-evenly h-full p-16 bg-secondary-gray m-4 rounded-3xl">
 					<div className="flex flex-col">
 						<div className="relative">
+							<div className="relative ">
+								<Image
+									src={post.imageUrl}
+									alt="carImage"
+									width={900}
+									height={500}
+									className={`rounded-lg ${
+										!hasLoaded ? "opacity-10" : "opacity-100"
+									}`}
+									onLoadingComplete={() => {
+										setHasLoaded(true);
+									}}
+								/>
+							</div>
 							<div
 								className="absolute bottom-2 right-2"
 								onClick={() => likeFunc(id)}>
@@ -51,13 +67,6 @@ const page = () => {
 									/>
 								)}
 							</div>
-							<Image
-								src={post.imageUrl}
-								alt="carImage"
-								width={900}
-								height={500}
-								className="rounded-lg"
-							/>
 						</div>
 						<div className="flex flex-row justify-between p-2 items-center">
 							<div className="flex flex-row items-center gap-2">
@@ -107,7 +116,33 @@ const page = () => {
 					</div>
 				</div>
 			) : (
-				<div>Loading...</div>
+				<div class="flex flex-col lg:flex-row gap-12 lg:justify-evenly h-full p-16 bg-secondary-gray m-4 rounded-3xl">
+					<div class="flex flex-col">
+						<div class="relative">
+							<div class="absolute bottom-2 right-2">
+								<div class="skeleton-icon"></div>
+							</div>
+							<div class="relative">
+								<div class="skeleton-image"></div>
+							</div>
+						</div>
+						<div class="flex flex-row justify-between p-2 items-center">
+							<div class="flex flex-row items-center gap-2">
+								<div class="skeleton-avatar"></div>
+								<div class="skeleton-name"></div>
+							</div>
+							<div class="skeleton-date"></div>
+						</div>
+						<div class="flex flex-col justify-start items-start h-full">
+							<div class="flex flex-row w-full h-24px gap-10 items-center text-nowrap">
+								<div class="skeleton-price"></div>
+								<div class="skeleton-switch"></div>
+							</div>
+							<div class="skeleton-title"></div>
+							<div class="skeleton-details"></div>
+						</div>
+					</div>
+				</div>
 			)}
 		</DefaultLayout>
 	);

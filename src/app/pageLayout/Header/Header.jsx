@@ -9,8 +9,9 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Button } from "@mui/base";
 import { useEffect } from "react";
+import { logout } from "@/lib/accountManagement";
 
-const Header = ({ profileInfo }) => {
+const Header = () => {
 	const [menuOpen, setMenuOpen] = React.useState(false);
 
 	useEffect(() => {
@@ -61,10 +62,13 @@ const Header = ({ profileInfo }) => {
 				className={`overflow-hidden transition-all mt-8 duration-300 lg:hidden ${
 					menuOpen ? "h-auto" : "h-0"
 				}`}>
-				<nav className="min-h-[40dvh] flex justify-center border-b-2 mx-8 border-main-black">
+				<nav className="min-h-[40dvh] flex justify-center pb-14 border-b-2 mx-8 border-main-black">
 					<ul className="flex flex-col items-center gap-10 text-lg font-semibold underline-offset-4 transition-all duration-300 w-1/3">
 						<li className="self-end">
-							<LogoutIcon className="cursor-pointer " />
+							<LogoutIcon
+								className="cursor-pointer "
+								onClick={() => logout()}
+							/>
 						</li>
 						<li className="hover:underline hover:font-black transition-all ease-in-out duration-300">
 							<Link href="/">Home</Link>
