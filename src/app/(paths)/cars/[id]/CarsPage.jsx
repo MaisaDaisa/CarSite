@@ -16,11 +16,11 @@ const CarsPage = () => {
 	const [post, setPost] = useState([]);
 	const [isFavorite, setIsFavorite] = useState(false);
 	const [id, setId] = useState(params.id);
-	const [hasLoaded, setHasLoaded] = useState(false);
 
 	useEffect(() => {
 		getPostById(id).then((data) => {
 			setPost(data);
+			console.log(data);
 		});
 	}, [id]);
 
@@ -37,17 +37,12 @@ const CarsPage = () => {
 					<div className="flex flex-col">
 						<div className="relative">
 							<div className="relative ">
-								<Image
+								<img
 									src={post.imageUrl}
 									alt="carImage"
 									width={900}
 									height={500}
-									className={`rounded-lg ${
-										!hasLoaded ? "opacity-10" : "opacity-100"
-									}`}
-									onLoadingComplete={() => {
-										setHasLoaded(true);
-									}}
+									className={`rounded-lg `}
 								/>
 							</div>
 							<div
@@ -80,7 +75,7 @@ const CarsPage = () => {
 							<p>{getTimeDifference(post.datePosted)}</p>
 						</div>
 					</div>
-					<div className="flex flex-col justify-start items-start h-full">
+					<div className="flex flex-col lg:w-1/4 justify-start items-start h-full">
 						{post.priceNegotiation ? (
 							<p className="flex items-center text-4xl leading-[1] text-center text-gray-800 font-bold pr-[4px]">
 								Negotiate For Price

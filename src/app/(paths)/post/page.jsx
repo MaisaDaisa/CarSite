@@ -85,7 +85,7 @@ const Page = () => {
 
 	const handleSubmission = () => {
 		switch (true) {
-			case !price || (price === 0 && !priceNegotiation):
+			case !price && priceNegotiation !== true:
 				setAlertMessage("Price is required");
 				setAlertType("error");
 				setAlertVisibilityTimer(setAlertVisible);

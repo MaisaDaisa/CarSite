@@ -127,7 +127,7 @@ const ImageCropper = ({ updateParentImage }) => {
 							);
 							const dataUrl = previewCanvasRef.current.toDataURL();
 							const blob = dataURLtoBlob(dataUrl);
-							const file = new File([blob], "image.png", { type: "image/png" });
+							const file = new File([blob], "image.jpg", { type: "image/jpg" });
 							updateParentImage(file);
 						}}
 						variant="contained"

@@ -4,19 +4,31 @@ import { switchClasses } from "@mui/joy/Switch";
 
 const PriceDisplay = ({ price, currency }) => {
 	const [currencyState, setCurrencyState] = React.useState(currency);
+	const [priceInDollars, setPriceInDollars] = React.useState(
+		currency === "dollar" ? price : price / 3.1
+	);
+	const [priceInLari, setPriceInLari] = React.useState(
+		currency === "lari" ? price : price * 3.1
+	);
+
+	const handleCurrencyChange = () => {
+		setCurrencyState(currencyState === "lari" ? "dollar" : "lari");
+	};
+
 	return (
-		<div className="flex flex-row w-full h-24px gap-10 items-center text-nowrap">
+		<div className="flex flex-row w-full gap-10 h-24px items-center text-nowrap">
 			<p className="flex items-center text-4xl leading-[1] text-center text-gray-800 font-bold pr-[4px]">
-				{parseInt(price).toLocaleString() + " "}
+				{parseInt(
+					currencyState === "dollar" ? priceInDollars : priceInLari
+				).toLocaleString() + " "}
 				<span className="w-6">{{ lari: "₾", dollar: "$" }[currencyState]}</span>
 			</p>
 			<div className="flex flex-row items-center gap-2 font-bold text-lg">
 				<Switch
 					startDecorator={<p className="text-lg">₾</p>}
 					endDecorator={<p className="text-lg">$</p>}
-					onChange={() =>
-						setCurrencyState(currencyState === "lari" ? "dollar" : "lari")
-					}
+					checked={currencyState === "dollar"}
+					onChange={handleCurrencyChange}
 					sx={(theme) => ({
 						[`& .${switchClasses.thumb}`]: {
 							transition: "width 0.2s, left 0.2s",

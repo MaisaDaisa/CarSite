@@ -46,7 +46,7 @@ const CarCard = ({
 						/>
 					)}
 				</div>
-				<Image
+				<img
 					alt="carImage"
 					src={imgSrc}
 					width={600}
