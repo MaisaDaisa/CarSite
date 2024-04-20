@@ -4,6 +4,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import { likeFunc } from "@/lib/favortiesManager";
 import Link from "next/link";
+import { Skeleton } from "@mui/material";
 
 const CarCard = ({
 	favoritesList,
