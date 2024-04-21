@@ -12,7 +12,7 @@ const FavoritesPage = () => {
 	}, []);
 	return (
 		<DefaultLayout>
-			<div className="flex flex-col items-center md:flex-row md:justify-center gap-10 mt-20">
+			<div className="flex flex-col items-center px-6 md:flex-row md:justify-center gap-10 mt-10">
 				{favoritesList &&
 					favoritesList.map((car) => (
 						<CarCard
