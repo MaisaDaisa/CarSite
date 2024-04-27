@@ -29,7 +29,7 @@ const CarCard = ({
 	}, [favoritesList]);
 
 	return (
-		<div className="flex flex-col w-full md:w-[200px] h-full  bg-white rounded-2xl shadow-lg ">
+		<div className="flex flex-col w-full md:w-[240px] h-full bg-white rounded-2xl shadow-lg ">
 			<div className="relative">
 				<div
 					className="absolute top-2 right-2 z-10"
@@ -69,10 +69,10 @@ const CarCard = ({
 				</p>
 			</div>
 			<div className="border-t-[1px] py-2 m-2 border-slate-400 justify-around gap-5 justify-self-end flex mt-6 items-center">
-				<p className="text-base md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70 ">
+				<p className="text-base md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70 h-full">
 					{carType}
 				</p>
-				<p className="text-base md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70">
+				<p className="text-base md:text-xs font-semibold bg-secondary-gray px-5 md:px-3 py-2 rounded-lg opacity-70 h-full">
 					{fuelType}
 				</p>
 			</div>
