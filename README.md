@@ -36,6 +36,23 @@ Start the server
 ```bash
   npm run start
 ```
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file. These variables can be found in your firebase settings
+
+`NEXT_PUBLIC_API_KEY`
+
+`NEXT_PUBLIC_AUTH_DOMAIN`
+
+`NEXT_PUBLIC_PROJECT_ID`
+
+`NEXT_PUBLIC_STORAGE_BUCKET`
+
+`NEXT_PUBLIC_MESSAGING_SENDER_ID`
+
+`NEXT_PUBLIC_APP_ID`
+
+`NEXT_PUBLIC_MEASUREMENT_ID`
 ## Tech Stack
 
 **Client:** React, TailwindCSS, MaterialUi
