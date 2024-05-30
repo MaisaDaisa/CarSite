@@ -1,11 +1,15 @@
 # GeoAuto
 
-This project is about making a Car Market where the users can upload, like and interact with car listings. The Database used in this project is Firebase
+This project is about making a Car Market where users can upload, like, and interact with car listings. The Database used in this project is Firebase
 The project uses Next.js version 14.1.4 These services include authentication, database storage, and fireStore. The project uses Material UI for its user interface.
+
+
+
+
 
 ## Demo
 
-TODO: NetlifyLink
+https://geoauto.netlify.app/login
 
 ## Run Locally
 
@@ -32,3 +36,9 @@ Start the server
 ```bash
   npm run start
 ```
+## Tech Stack
+
+**Client:** React, TailwindCSS, MaterialUi
+
+**Server:** Firebase
+
