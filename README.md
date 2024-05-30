@@ -42,3 +42,9 @@ Start the server
 
 **Server:** Firebase
 
+
+## Screenshots
+
+![Site Screenshots](https://github.com/MaisaDaisa/CarSite/assets/129600723/5cc035ee-a065-4acd-983f-882d9e1657ee)
+
+![Search on Home Page](https://github.com/MaisaDaisa/CarSite/assets/129600723/7dc07a80-9d81-4811-8269-620cb5bc985a)
